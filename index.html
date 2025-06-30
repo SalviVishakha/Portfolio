@@ -51,10 +51,6 @@
     </div>
   </section>
 
-
-
-
-
   <section id="about" class="about-section">
     <h2>About Me</h2>
     <div class="about-content">
@@ -68,64 +64,74 @@
   </section>
  
                                               <!-- PROJECT -->
-    <section id="projects" class="projects-section">
-    <h2 class="section-heading">Projects</h2>
     
-    <!-- Project 1 -->
-    <div class="project-container">
-      <div class="project-image">
-        <img src="ss1.jpg" alt="Govardhan Dairy Farm">
-      </div>
-      <div class="project-content">
-       
-        <h3 class="project-title">Govardhan Dairy Farm</h3>
-        <p class="project-description">
-          Developed an e-commerce platform for Govardhan Dairy Farm using the MERN stack. 
-          Includes product management, order processing, and admin controls for efficient dairy operations.
-        </p>
-        <div class="platforms">
-          <span class="platform">VS Code</span>
-          <span class="platform">React</span>
-          <span class="platform">Node.js</span>
-          <span class="platform">MongoDB</span>
-        </div>
+    
+   <section id="projects" class="projects-section">
+  <h2 class="section-heading">Projects</h2>
+  
+  <!-- Project 1 -->
+  <div class="project-container">
+    <div class="project-image">
+      <img src="ss1.jpg" alt="Govardhan Dairy Farm">
+    </div>
+    <div class="project-title-container">
+      <h3 class="project-title">Govardhan Dairy Farm</h3>
+    </div>
+    <div class="project-content">
+    
+      <p class="project-description">
+        Developed an e-commerce platform for Govardhan Dairy Farm using the MERN stack. 
+        Includes product management, order processing, and admin controls.
+      </p>
+      <div class="platforms">
+        <span class="platform">VS Code</span>
+        <span class="platform">React</span>
+        <span class="platform">Node.js</span>
+        <span class="platform">MongoDB</span>
       </div>
     </div>
-    
-    <!-- Project 2 -->
-    <div class="project-container reverse">
-      <div class="project-image">
-        <img src="ss2.jpg" alt="Resume Builder">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">Resume Builder</h3>
-        <p class="project-description">  A user-friendly resume builder tool with customizable templates built using HTML, CSS, 
-          and JavaScript to deliver an intuitive user experience.
-        </p>
-        <div class="platforms">
-          <span class="platform">HTML/CSS</span>
-          <span class="platform">JavaScript</span>
-        </div>
+  </div>
+  
+  <!-- Project 2 -->
+  <div class="project-container reverse">
+    <div class="project-image">
+      <img src="ss2.jpg" alt="Resume Builder">
+    </div>
+    <div class="project-title-container">
+      <h3 class="project-title">Resume Builder</h3>
+    </div>
+    <div class="project-content">
+      <p class="project-description">
+        A user-friendly resume builder tool with customizable templates built using 
+        HTML, CSS, and JavaScript.
+      </p>
+      <div class="platforms">
+        <span class="platform">HTML/CSS</span>
+        <span class="platform">JavaScript</span>
       </div>
     </div>
-    
-    <!-- Project 3 -->
-    <div class="project-container">
-      <div class="project-image">
-        <img src="ss3.jpg" alt="Blog App">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">Blog App</h3>
-        <p class="project-description"> A full-stack blog application built using React, Node.js, Express, and MongoDB. 
-          It features the ability to create, read, update and delete blog posts with a clean user interface.
-        </p>
-        <div class="platforms">
-          <span class="platform">MERN Stack</span>
-          <span class="platform">REST API</span>
-        </div>
+  </div>
+  
+  <!-- Project 3 -->
+  <div class="project-container">
+    <div class="project-image">
+      <img src="ss3.jpg" alt="Blog App">
+    </div>
+    <div class="project-title-container">
+      <h3 class="project-title">Blog App</h3>
+    </div>
+    <div class="project-content">
+      <p class="project-description">
+        A full-stack blog application built using React, Node.js, Express, and MongoDB 
+        with CRUD functionality.
+      </p>
+      <div class="platforms">
+        <span class="platform">MERN Stack</span>
+        <span class="platform">REST API</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
    
    
 
@@ -134,29 +140,77 @@
   </footer>
 </body>
 
-       <script>
-      
-      
-      window.onload = function () {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        history.replaceState(null, null, ' ');
-      }, 0);
-      
-      // Observer for projects section
-      const projectsSection = document.querySelector('.projects-section');
-      const projectsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            projectsObserver.unobserve(entry.target);
-          }
-        });}, { 
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Reset scroll position on page load
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      history.replaceState(null, null, ' ');
+    }, 0);
+
+    // Enhanced Intersection Observer for animations
+    const animateOnScroll = () => {
+      const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add in-view class to the section
+            entry.target.classList.add('in-view');
+            
+            // Special handling for projects section
+            if (entry.target.classList.contains('projects-section')) {
+              const projects = entry.target.querySelectorAll('.project-container');
+              projects.forEach((project, index) => {
+                setTimeout(() => {
+                  project.classList.add('in-view');
+                  
+                  // Animate project elements sequentially within each project
+                  const title = project.querySelector('.project-title');
+                  const description = project.querySelector('.project-description');
+                  const platforms = project.querySelector('.platforms');
+                  
+                  if (title) setTimeout(() => title.classList.add('in-view'), 100);
+                  if (description) setTimeout(() => description.classList.add('in-view'), 200);
+                  if (platforms) setTimeout(() => platforms.classList.add('in-view'), 300);
+                }, index * 300); // 300ms delay between each project
+              });
+            }
+            
+            // Special handling for about section
+            if (entry.target.classList.contains('about-section')) {
+              const aboutCards = entry.target.querySelectorAll('.about-card');
+              aboutCards.forEach((card, index) => {
+                setTimeout(() => {
+                  card.classList.add('in-view');
+                }, index * 200);
+              });
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe both sections
+      document.querySelectorAll('.about-section, .projects-section').forEach(section => {
+        observer.observe(section);
       });
-      projectsObserver.observe(projectsSection);
     };
+
+    animateOnScroll();
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  });
 </script>
 
 </html>
