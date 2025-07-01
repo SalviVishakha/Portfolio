@@ -106,7 +106,8 @@
         HTML, CSS, and JavaScript.
       </p>
       <div class="platforms">
-        <span class="platform">HTML/CSS</span>
+        <span class="platform">HTML</span>
+        <span class="platform">CSS</span>
         <span class="platform">JavaScript</span>
       </div>
     </div>
@@ -133,10 +134,32 @@
   </div>
 </section>
    
-   
+   <!-- Skills Section -->
+<section class="skills-bubbles" id="skills">
+    <h2 class="section-title">My Skills</h2>
+
+    <div class="section-subtitle">Technical Skills</div>
+    <div class="bubbles-container">
+      <span class="bubble"><i class="fab fa-html5"></i> HTML</span>
+      <span class="bubble"><i class="fab fa-css3-alt"></i> CSS</span>
+      <span class="bubble"><i class="fab fa-js-square"></i> JavaScript</span>
+      <span class="bubble"><i class="fab fa-react"></i> React</span>
+      <span class="bubble"><i class="fab fa-node"></i> Node.js</span>
+      <span class="bubble"><i class="fas fa-database"></i> MongoDB</span>
+      <span class="bubble"><i class="fas fa-database"></i> MySQL</span>
+    </div>
+
+    <div class="section-subtitle">Soft Skills</div>
+    <div class="bubbles-container">
+      <span class="bubble">Teamwork</span>
+      <span class="bubble">Time Management</span>
+      <span class="bubble">Quick Learner</span>
+      <span class="bubble">Responsibility</span>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2025 Vishakha Salvi. All rights reserved.</p>
+    <p> 2025 Vishakha Salvi .</p>
   </footer>
 </body>
 
@@ -148,7 +171,7 @@
       history.replaceState(null, null, ' ');
     }, 0);
 
-    // Enhanced Intersection Observer for animations
+    // Animate sections on scroll
     const animateOnScroll = () => {
       const observerOptions = {
         threshold: 0.1,
@@ -158,29 +181,25 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Add in-view class to the section
             entry.target.classList.add('in-view');
-            
-            // Special handling for projects section
+
             if (entry.target.classList.contains('projects-section')) {
               const projects = entry.target.querySelectorAll('.project-container');
               projects.forEach((project, index) => {
                 setTimeout(() => {
                   project.classList.add('in-view');
-                  
-                  // Animate project elements sequentially within each project
+
                   const title = project.querySelector('.project-title');
                   const description = project.querySelector('.project-description');
                   const platforms = project.querySelector('.platforms');
-                  
+
                   if (title) setTimeout(() => title.classList.add('in-view'), 100);
                   if (description) setTimeout(() => description.classList.add('in-view'), 200);
                   if (platforms) setTimeout(() => platforms.classList.add('in-view'), 300);
-                }, index * 300); // 300ms delay between each project
+                }, index * 300);
               });
             }
-            
-            // Special handling for about section
+
             if (entry.target.classList.contains('about-section')) {
               const aboutCards = entry.target.querySelectorAll('.about-card');
               aboutCards.forEach((card, index) => {
@@ -193,7 +212,6 @@
         });
       }, observerOptions);
 
-      // Observe both sections
       document.querySelectorAll('.about-section, .projects-section').forEach(section => {
         observer.observe(section);
       });
@@ -201,16 +219,33 @@
 
     animateOnScroll();
 
-    // Smooth scrolling for navigation links
+    // Smooth scroll for nav links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        const targetSection = document.querySelector(this.getAttribute('href'));
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
+
+    // Show skills section when in view
+    const skillsSection = document.getElementById("skills");
+
+    function showSkillsIfInView() {
+      const top = skillsSection.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      if (top < windowHeight - 100) {
+        skillsSection.classList.add("show");
+        window.removeEventListener("scroll", showSkillsIfInView);
+      }
+    }
+
+    window.addEventListener("scroll", showSkillsIfInView);
+    window.addEventListener("load", showSkillsIfInView);
   });
 </script>
+
 
 </html>
