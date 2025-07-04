@@ -699,54 +699,62 @@ footer {
 }
 
 /* Responsive */
+/* Base styles already provided */
+
 @media (max-width: 768px) {
+  /* Make project containers stack vertically */
   .project-container,
   .project-container.reverse {
     flex-direction: column;
+    height: auto; /* Allow height to adjust to content */
+    margin-bottom: 40px; /* Add spacing between projects */
   }
-  
+
+  /* Remove fixed min-height on images for small screens */
+  .project-image {
+    height: auto;
+    width: 100%;
+    max-width: 100%; /* Make sure to not overflow */
+  }
+
+  /* Make image container full width and center */
+  .project-image {
+    margin: 0 auto 20px auto;
+  }
+
+  /* Adjust overlay and image for smaller width if needed */
+  .project-image::before {
+    width: 100%;
+  }
+
+  /* Make project title container full width and centered */
   .project-title-container {
     position: static;
     width: 100%;
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    text-align: center;
   }
-  
+
+  /* Center align project title text */
   .project-title {
     text-align: center;
   }
-  
+
+  /* Make project content full width and center it */
   .project-content {
-    margin: 0 !important;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px; /* Slightly smaller radius if needed */
   }
-  
-  .project-image {
-    height: 300px;
+
+  /* Optional: adjust hover scale for images to avoid layout shift */
+  .project-image:hover img {
+    transform: scale(1.02);
   }
 }
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 
-  .nav-links {
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links a {
-    font-size: 18px;
-    padding: 10px 0;
-  }
-}
 /* Experience & Education Section */
 .experience-education-section {
   padding: 80px 20px;
@@ -982,21 +990,41 @@ padding-left: 70px;
 }
 
 @media (max-width: 768px) {
+  /* Stack content vertically */
   .contact-content {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Remove left padding on small screens for better centering */
+  .contact-left {
+    padding-left: 0;
+    width: 100%;
+    text-align: center; /* Center the text */
   }
 
+  /* Adjust heading size for smaller screens */
   .contact-left h2 {
     font-size: 2rem;
   }
 
+  /* Adjust paragraph font size for readability */
   .contact-left p {
     font-size: 1rem;
+    max-width: 100%;
   }
 
+  /* Center the contact image and make it responsive */
   .contact-img {
     width: 70%;
+    max-width: 300px; /* Optional: keep max width for larger screens */
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  /* Center the social icons */
+  .contact-socials {
+    justify-content: center;
   }
 }
