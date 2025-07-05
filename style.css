@@ -30,33 +30,66 @@ header {
 }
 
 .navbar {
-  display: flex;
+ display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 32px;
+   font-size: 32px;
   font-weight: bold;
   margin-left: 30px;
 
 }
 
 .nav-links {
-  display: flex;
+    display: flex;
   gap: 40px;
   list-style: none;
 }
 
 .nav-links a {
-  color: white;
+   color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 21px;
+  font-size: 1.5rem; /* Reduced font size */
+  white-space: nowrap;
+  transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
   color: #e1bfb0;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row; /* Keep horizontal layout */
+    padding: 15px 5%;
+  }
+  
+  .nav-links {
+    gap: 15px; /* Smaller gap on mobile */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    padding-bottom: 5px; /* Space for scrollbar */
+  }
+  
+  .nav-links::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+  
+  .nav-links {
+    gap: 10px;
+  }
 }
 
  .hero {
@@ -386,7 +419,7 @@ footer {
       height: fit-content;
       align-self: start;
     }  */
-   .about-section h2 {
+     .about-section h2 {
       font-size: 40px;
       position: relative;
       color: #e1bfb0;
@@ -443,33 +476,28 @@ footer {
       transition-delay: 1s;
     }
 
-     @media (max-width: 768px) {
-      .about-section {
-        /* grid-template-columns: 1fr; */
-        padding: 30px 15px;
+   @media (max-width: 768px) {
+  .about-section {
     display: block;
+    padding: 30px 15px;
     min-height: auto;
-      }
-      
-      /* .about-sticky-container,
-      .about-content {
-        position: static;
-      } */
-      
-      .about-section h2 {
-        /* text-align: left;
-        border-right: none;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-        padding-right: 0;
-        padding-bottom: 20px;
-        margin-bottom: 30px; */
-        font-size: 28px;
+  }
+
+  .about-section h2 {
+    font-size: 28px;
     text-align: center;
     border: none;
     padding: 0;
-    margin-bottom: 20px;
-      }
-       .about-content {
+    margin-bottom: 25px; /* Reduced from 40px to a more balanced spacing */
+    position: static;
+    top: auto;
+    transform: none;
+    opacity: 1;
+  }
+
+  .about-content {
+    position: static;
+    top: auto;
     gap: 16px;
   }
 
@@ -481,7 +509,7 @@ footer {
     box-sizing: border-box;
     word-wrap: break-word;
   }
-    }
+}
 
 
     /* PROJECTS */
@@ -699,62 +727,42 @@ footer {
 }
 
 /* Responsive */
-/* Base styles already provided */
-
 @media (max-width: 768px) {
-  /* Make project containers stack vertically */
   .project-container,
   .project-container.reverse {
     flex-direction: column;
-    height: auto; /* Allow height to adjust to content */
-    margin-bottom: 40px; /* Add spacing between projects */
   }
-
-  /* Remove fixed min-height on images for small screens */
-  .project-image {
-    height: auto;
-    width: 100%;
-    max-width: 100%; /* Make sure to not overflow */
-  }
-
-  /* Make image container full width and center */
-  .project-image {
-    margin: 0 auto 20px auto;
-  }
-
-  /* Adjust overlay and image for smaller width if needed */
-  .project-image::before {
-    width: 100%;
-  }
-
-  /* Make project title container full width and centered */
+  
   .project-title-container {
     position: static;
     width: 100%;
     padding: 0;
-    margin-bottom: 10px;
-    text-align: center;
+    margin-bottom: 20px;
+    order: -1; /* This moves the title before the image */
   }
-
-  /* Center align project title text */
+  
   .project-title {
     text-align: center;
   }
-
-  /* Make project content full width and center it */
+  
   .project-content {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px; /* Slightly smaller radius if needed */
+    margin: 0 !important;
+    width: 100%;
+    order: 2; /* This ensures content stays after image */
   }
-
-  /* Optional: adjust hover scale for images to avoid layout shift */
-  .project-image:hover img {
-    transform: scale(1.02);
+  
+  .project-image {
+    height: 300px;
+    order: 1; /* This puts image after title but before content */
+  }
+  
+  .project-title::after {
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, #d9a6f3, transparent);
   }
 }
-
 /* Experience & Education Section */
 .experience-education-section {
   padding: 80px 20px;
@@ -925,6 +933,14 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+   opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.contact-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact-content {
